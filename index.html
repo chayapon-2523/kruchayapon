@@ -623,7 +623,7 @@ async function fetchSheet(sheetName) {
   const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
   const cols = json.table.cols.map(c => c.label);
   const rows = (json.table.rows || []).map(r =>
-    Object.fromEntries(cols.map((c, i) => [c, r.c[i]?.v ?? '']))
+    Object.fromEntries(cols.map((c, i) => [c, r.c[i]?.v ?? r.c[i]?.f ?? '']))
   );
   cache[sheetName] = { cols, rows };
   return cache[sheetName];
@@ -793,16 +793,26 @@ async function loadStudents() {
   const el = document.getElementById('studentsContent');
   try {
     const d = await fetchSheet(SHEETS.students);
-    const cols = d.cols.filter(c => c);
-    el.innerHTML = renderTable(cols, d.rows, cols.map(c => ({
+    // กรองเอาเฉพาะคอลัมน์ที่มีชื่อจริงๆ (ไม่ว่าง)
+    const cols = d.cols.filter(c => c && c.trim() !== '');
+    // กรองแถวที่มีข้อมูลจริง (ไม่ใช่แถวว่างทั้งหมด)
+    const rows = d.rows.filter(r => cols.some(c => r[c] !== '' && r[c] !== null && r[c] !== undefined));
+    if (!rows.length) {
+      el.innerHTML = emptyState('ยังไม่มีข้อมูลผู้เรียน — กรุณาเพิ่มข้อมูลใน Google Sheets');
+      return;
+    }
+    el.innerHTML = renderTable(cols, rows, cols.map(c => ({
       key: c, label: c,
       render: (v, r) => {
+        // รองรับทั้ง "สถานะ" และ "สถานะภาพ" และ "สถานะการเรียน"
         if (c.includes('สถานะ')) {
-          const cls = v==='กำลังเรียน'?'active':v==='พักการเรียน'?'wait':'inactive';
-          const ic  = v==='กำลังเรียน'?'circle-check':v==='พักการเรียน'?'pause-circle':'x-circle';
-          return `<span class="status-pill ${cls}"><i class="ti ti-${ic}"></i>${v||'—'}</span>`;
+          const val = String(v || '');
+          const cls = val.includes('เรียน') && !val.includes('พัก') ? 'active'
+                    : val.includes('พัก') ? 'wait' : 'inactive';
+          const ic  = cls==='active' ? 'circle-check' : cls==='wait' ? 'pause-circle' : 'x-circle';
+          return `<span class="status-pill ${cls}"><i class="ti ti-${ic}"></i>${val||'—'}</span>`;
         }
-        return v||'—';
+        return String(v ?? '—') || '—';
       }
     })));
   } catch(e) { el.innerHTML = errState(e.message); }
