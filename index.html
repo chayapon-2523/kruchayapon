@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<html>
+        <head><title>Downloaded HTML</title></head>
+        <body>
+            <pre style="white-space: pre-wrap; word-wrap: break-word;"><!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -464,7 +467,7 @@
       <div class="hero">
         <div class="hero-eyebrow">ระบบส่งเสริมการเรียนรู้ออนไลน์</div>
         <div class="hero-title">ยินดีต้อนรับสู่แพลตฟอร์ม KRUCHAYAPON</div>
-        <div class="hero-sub">สกร. อำเภอเชียงคำ • ภาคเรียนที่ 1 ปีการศึกษา 2568</div>
+        <div class="hero-sub">สกร. อำเภอเชียงคำ • ภาคเรียนที่ 1 ปีการศึกษา 2569</div>
         <div class="hero-meta">
           <div class="hero-stat"><i class="ti ti-users"></i> <span id="heroStudents">—</span> ผู้เรียน</div>
           <div class="hero-stat"><i class="ti ti-book"></i> <span id="heroSubjects">—</span> วิชา</div>
@@ -622,9 +625,10 @@ async function fetchSheet(sheetName) {
   const text = await res.text();
   const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
   const cols = json.table.cols.map(c => c.label);
-  const rows = (json.table.rows || []).map(r =>
-    Object.fromEntries(cols.map((c, i) => [c, r.c[i]?.v ?? r.c[i]?.f ?? '']))
-  );
+  const rawRows = json.table.rows || [];
+  const rows = rawRows
+    .filter(r => r && r.c && r.c.some(cell => cell && (cell.v !== null && cell.v !== undefined && cell.v !== '')))
+    .map(r => Object.fromEntries(cols.map((c, i) => [c, r.c[i]?.v ?? r.c[i]?.f ?? ''])));
   cache[sheetName] = { cols, rows };
   return cache[sheetName];
 }
@@ -796,7 +800,12 @@ async function loadStudents() {
     // กรองเอาเฉพาะคอลัมน์ที่มีชื่อจริงๆ (ไม่ว่าง)
     const cols = d.cols.filter(c => c && c.trim() !== '');
     // กรองแถวที่มีข้อมูลจริง (ไม่ใช่แถวว่างทั้งหมด)
-    const rows = d.rows.filter(r => cols.some(c => r[c] !== '' && r[c] !== null && r[c] !== undefined));
+    // กรองเฉพาะแถวที่คอลัมน์แรก (id) หรือคอลัมน์ที่สอง (ชื่อ) มีข้อมูล
+    const firstCols = cols.slice(0, 2);
+    const rows = d.rows.filter(r => firstCols.some(c => {
+      const v = r[c];
+      return v !== '' && v !== null && v !== undefined;
+    }));
     if (!rows.length) {
       el.innerHTML = emptyState('ยังไม่มีข้อมูลผู้เรียน — กรุณาเพิ่มข้อมูลใน Google Sheets');
       return;
@@ -1146,4 +1155,6 @@ loadHome();
 recordMenuClick('home');
 </script>
 </body>
-</html>
+</html></pre>
+        </body>
+    </html>
