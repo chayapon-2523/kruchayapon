@@ -4,518 +4,550 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>สกร.เชียงคำ Smart Information System</title>
+<meta name="description" content="ศูนย์รวมลิงก์และระบบสารสนเทศ สกร.อำเภอเชียงคำ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;600;700&family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --c-primary:   #0C447C;
-    --c-primary-light: #E6F1FB;
-    --c-secondary: #FF6F00;
-    --c-secondary-light: #FFF3E0;
-    --c-green:     #27500A;
-    --c-green-light: #EAF3DE;
-    --c-purple:    #3C3489;
-    --c-purple-light: #EEEDFE;
-    --c-amber:     #854F0B;
-    --c-amber-light:#FAEEDA;
-    --c-pink:      #72243E;
-    --c-pink-light: #FBEAF0;
-    --c-coral:     #712B13;
-    --c-coral-light:#FAECE7;
-    --c-bg:        #F0F4FA;
-    --c-surface:   #FFFFFF;
-    --c-border:    #DDE3ED;
-    --c-text:      #1A2340;
-    --c-text-2:    #4A5568;
-    --c-text-3:    #8896A8;
-    --sidebar-w:   250px;
-    --radius:      10px;
-    --shadow:      0 2px 10px rgba(12,68,124,.08);
+  :root{
+    --ink:#20261f;
+    --paper:#f6f2e7;
+    --paper-dim:#efe8d6;
+    --lake:#1f5455;
+    --lake-deep:#123536;
+    --night:#16233f;
+    --night-deep:#0d1730;
+    --gold:#e2a23a;
+    --gold-soft:#f0c877;
+    --clay:#b1552f;
+    --line:rgba(32,38,31,0.14);
+    --shadow:0 10px 30px rgba(13,23,48,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Sarabun',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Noto Serif Thai',serif;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.04em;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,var(--night-deep) 0%, var(--night) 55%, var(--lake-deep) 100%);
+    color:var(--paper);
+    overflow:hidden;
+    padding:0 0 0 0;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:3;
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px 24px 120px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;background:var(--gold-soft);
+    display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(34px,5.4vw,58px);
+    font-weight:700;
+    margin:0 0 14px;
+    line-height:1.18;
+    max-width:16ch;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--gold-soft);
+  }
+  .hero p{
+    max-width:52ch;
+    font-size:17px;
+    color:rgba(246,242,231,0.78);
+    margin:0 0 34px;
+  }
+  .search-wrap{
+    max-width:520px;
+  }
+  .search-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(246,242,231,0.08);
+    border:1px solid rgba(246,242,231,0.28);
+    border-radius:999px;
+    padding:13px 20px;
+    backdrop-filter:blur(6px);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .search-box:focus-within{
+    border-color:var(--gold-soft);
+    background:rgba(246,242,231,0.13);
+  }
+  .search-box svg{flex:none;opacity:.75;}
+  .search-box input{
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--paper);
+    font-family:'Sarabun',sans-serif;
+    font-size:15.5px;
+    width:100%;
+  }
+  .search-box input::placeholder{color:rgba(246,242,231,0.5);}
+  .search-count{
+    margin-top:10px;
+    font-size:12.5px;
+    color:rgba(246,242,231,0.55);
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:.02em;
+    min-height:16px;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Sarabun', sans-serif; background: var(--c-bg); color: var(--c-text); font-size: 15px; }
-  a { text-decoration: none; color: inherit; }
-
-  .app-shell { display: flex; min-height: 100vh; }
-
-  /* SIDEBAR */
-  .sidebar {
-    width: var(--sidebar-w); background: var(--c-primary);
-    display: flex; flex-direction: column;
-    position: fixed; top: 0; left: 0; height: 100vh;
-    z-index: 100; overflow-y: auto;
-    box-shadow: 3px 0 16px rgba(12,68,124,.18);
+  /* lanterns */
+  .lanterns{position:absolute;inset:0;z-index:1;pointer-events:none;}
+  .lantern{
+    position:absolute;
+    width:14px;height:18px;
+    background:radial-gradient(circle at 50% 40%, var(--gold-soft), var(--gold) 65%, transparent 100%);
+    border-radius:50% 50% 46% 46%;
+    box-shadow:0 0 16px 4px rgba(226,162,58,0.55);
+    animation:drift 14s ease-in-out infinite;
+    opacity:.85;
   }
-  .sidebar-logo {
-    padding: 20px 18px; background: rgba(255,255,255,.06);
-    border-bottom: 1px solid rgba(255,255,255,.12);
-    display: flex; align-items: center; gap: 12px;
+  @keyframes drift{
+    0%,100%{transform:translateY(0) translateX(0);}
+    50%{transform:translateY(-22px) translateX(8px);}
   }
-  .logo-img-wrap {
-    width: 46px; height: 46px; border-radius: 10px;
-    background: #fff; display: flex; align-items: center;
-    justify-content: center; flex-shrink: 0; overflow: hidden;
-    border: 2px solid rgba(255,255,255,.3);
-  }
-  .logo-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: none; }
-  .logo-placeholder { font-size: 16px; color: var(--c-primary); font-weight: 700; }
-  .logo-text { line-height: 1.3; }
-  .logo-name { font-size: 14px; font-weight: 700; color: #fff; }
-  .logo-sub  { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 1px; }
-
-  .sidebar-nav { padding: 12px 10px; flex: 1; }
-  .nav-section-label {
-    font-size: 10px; font-weight: 600; letter-spacing: .1em;
-    color: rgba(255,255,255,.4); text-transform: uppercase;
-    padding: 12px 10px 4px;
-  }
-  .nav-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 12px; border-radius: 8px;
-    font-size: 13px; color: rgba(255,255,255,.78);
-    cursor: pointer; transition: background .15s, color .15s;
-    margin-bottom: 1px;
-  }
-  .nav-item i { font-size: 16px; flex-shrink: 0; }
-  .nav-item:hover { background: rgba(255,255,255,.1); color: #fff; }
-  .nav-item.active { background: rgba(255,255,255,.18); color: #fff; font-weight: 600; }
-
-  .sidebar-footer {
-    padding: 14px 16px; border-top: 1px solid rgba(255,255,255,.12);
-    font-size: 11px; color: rgba(255,255,255,.5); text-align: center;
+  @media (prefers-reduced-motion: reduce){
+    .lantern{animation:none;}
   }
 
-  /* MAIN */
-  .main-content { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
-
-  .topbar {
-    background: var(--c-surface); border-bottom: 1px solid var(--c-border);
-    padding: 0 28px; height: 60px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 50;
-    box-shadow: 0 1px 6px rgba(0,0,0,.06);
+  /* mountains + lake */
+  .skyline{
+    position:absolute;
+    bottom:0;left:0;right:0;
+    z-index:2;
+    line-height:0;
   }
-  .topbar-title { font-size: 16px; font-weight: 600; color: var(--c-text); display: flex; align-items: center; gap: 8px; }
-  .topbar-title i { font-size: 20px; color: var(--c-primary); }
-  .search-box {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--c-bg); border: 1px solid var(--c-border);
-    border-radius: 8px; padding: 8px 14px; font-size: 13px; color: var(--c-text-3);
-    width: 260px;
-  }
-  .search-box i { font-size: 16px; }
-  .search-box input {
-    border: none; background: transparent; outline: none; font-size: 13px;
-    font-family: 'Sarabun', sans-serif; color: var(--c-text); width: 100%;
-  }
+  .skyline svg{width:100%;height:auto;display:block;}
 
-  .page { padding: 26px 28px; }
-
-  /* HERO */
-  .hero {
-    background: linear-gradient(135deg, var(--c-primary) 0%, #185FA5 60%, #378ADD 100%);
-    border-radius: var(--radius); padding: 28px 32px;
-    color: #fff; margin-bottom: 22px; position: relative; overflow: hidden;
+  /* ===== NAV DOTS ===== */
+  .toc{
+    max-width:1080px;
+    margin:-58px auto 0;
+    padding:0 24px;
+    position:relative;
+    z-index:4;
   }
-  .hero::before { content:''; position:absolute; right:-40px; top:-60px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,.07); }
-  .hero::after { content:''; position:absolute; right:60px; bottom:-40px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,.05); }
-  .hero-eyebrow { font-size: 12px; font-weight: 600; opacity: .7; letter-spacing: .08em; margin-bottom: 6px; }
-  .hero-title { font-size: 22px; font-weight: 700; line-height: 1.3; }
-  .hero-sub { font-size: 13px; opacity: .8; margin-top: 4px; }
-
-  /* KPI */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; margin-bottom: 24px; }
-  .kpi-card {
-    background: var(--c-surface); border: 1px solid var(--c-border);
-    border-radius: var(--radius); padding: 16px 18px;
-    box-shadow: var(--shadow); position: relative; overflow: hidden;
+  .toc-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+    box-shadow:var(--shadow);
   }
-  .kpi-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; border-radius:4px 0 0 4px; }
-  .kpi-card.blue::before  { background: var(--c-primary); }
-  .kpi-card.green::before { background: var(--c-green); }
-  .kpi-card.amber::before { background: var(--c-amber); }
-  .kpi-card.pink::before  { background: var(--c-pink); }
-  .kpi-label { font-size: 12px; color: var(--c-text-3); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
-  .kpi-label i { font-size: 14px; }
-  .kpi-value { font-size: 26px; font-weight: 700; color: var(--c-text); }
-  .kpi-note { font-size: 11px; color: var(--c-text-3); margin-top: 4px; }
-
-  /* SECTION */
-  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; margin-top: 6px; }
-  .section-title { font-size: 15px; font-weight: 600; color: var(--c-text); display: flex; align-items: center; gap: 7px; }
-  .section-title i { font-size: 18px; }
-
-  /* GROUP CARDS */
-  .group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 26px; }
-  .group-card {
-    background: var(--c-surface); border: 1px solid var(--c-border);
-    border-radius: var(--radius); padding: 16px 18px;
-    box-shadow: var(--shadow);
+  .toc-row a{
+    text-decoration:none;
+    font-size:13.5px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:var(--paper-dim);
+    color:var(--ink);
+    transition:background .15s ease, color .15s ease;
+    white-space:nowrap;
   }
-  .group-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .group-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .group-icon.blue   { background: var(--c-primary-light);   color: var(--c-primary); }
-  .group-icon.green  { background: var(--c-green-light);     color: var(--c-green); }
-  .group-icon.amber  { background: var(--c-amber-light);     color: var(--c-amber); }
-  .group-icon.pink   { background: var(--c-pink-light);      color: var(--c-pink); }
-  .group-icon.purple { background: var(--c-purple-light);    color: var(--c-purple); }
-  .group-icon.coral  { background: var(--c-coral-light);     color: var(--c-coral); }
-  .group-title { font-size: 14px; font-weight: 600; color: var(--c-text); }
-  .group-links { display: flex; flex-direction: column; gap: 3px; }
-  .group-link {
-    font-size: 12.5px; color: var(--c-text-2); padding: 7px 10px;
-    border-radius: 8px; display: flex; align-items: center; justify-content: space-between;
-    cursor: pointer; transition: background .12s, color .12s;
-  }
-  .group-link:hover { background: var(--c-bg); color: var(--c-primary); }
-  .group-link i.ext { font-size: 13px; color: var(--c-text-3); flex-shrink: 0; margin-left: 8px; }
-  .group-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .group-link.disabled { color: var(--c-text-3); cursor: default; }
-  .group-link.disabled:hover { background: transparent; color: var(--c-text-3); }
+  .toc-row a:hover{background:var(--lake);color:var(--paper);}
 
-  /* TWO COL BOTTOM */
-  .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
-  @media(max-width:900px) { .two-col { grid-template-columns: 1fr; } }
-  .panel { background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
-  .panel-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-
-  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
-  .tool-chip {
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    padding: 12px 6px; border-radius: 10px; background: var(--c-bg);
-    cursor: pointer; transition: background .15s, transform .15s;
+  /* ===== SECTIONS ===== */
+  main{max-width:1080px;margin:0 auto;padding:70px 24px 40px;}
+  .section{margin-bottom:64px;scroll-margin-top:24px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
   }
-  .tool-chip:hover { background: var(--c-primary-light); transform: translateY(-2px); }
-  .tool-chip i { font-size: 22px; }
-  .tool-chip span { font-size: 11px; color: var(--c-text-2); text-align: center; }
-
-  .report-list { display: flex; flex-direction: column; gap: 6px; }
-  .report-item {
-    display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-    border-radius: 8px; cursor: pointer; transition: background .12s;
+  .section-head .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--lake);
+    background:rgba(31,84,85,0.08);
+    padding:4px 10px;
+    border-radius:6px;
+    flex:none;
   }
-  .report-item:hover { background: var(--c-bg); }
-  .report-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  .report-text { font-size: 13px; color: var(--c-text); }
-  .report-item i.ext { font-size: 14px; color: var(--c-text-3); margin-left: auto; }
-
-  /* PROMPT BANNER */
-  .prompt-banner {
-    margin-top: 18px; background: var(--c-purple-light); border: 1px solid var(--c-border);
-    border-radius: var(--radius); padding: 14px 18px;
-    display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  .section-head h2{
+    font-size:23px;
+    margin:0;
+    font-weight:600;
   }
-  .prompt-banner-left { display: flex; align-items: center; gap: 12px; }
-  .prompt-banner-icon { width: 38px; height: 38px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--c-purple); flex-shrink: 0; }
-  .prompt-banner-title { font-size: 13px; font-weight: 600; color: var(--c-text); }
-  .prompt-banner-sub { font-size: 12px; color: var(--c-text-2); }
-  .prompt-banner-btn {
-    background: var(--c-purple); color: #fff; padding: 8px 16px; border-radius: 8px;
-    font-size: 12.5px; font-weight: 500; display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  .section-desc{
+    font-size:14.5px;
+    color:rgba(32,38,31,0.6);
+    margin:-12px 0 22px;
   }
 
-  /* RESPONSIVE */
-  @media(max-width:768px) {
-    .sidebar { width: 100%; height: auto; position: relative; }
-    .main-content { margin-left: 0; }
-    .page { padding: 16px; }
-    .topbar { padding: 0 16px; }
-    .search-box { display: none; }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
+    gap:14px;
+  }
+  .card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:15px 16px;
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(31,84,85,0.14);
+    border-color:var(--lake);
+  }
+  .card .dot{
+    flex:none;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--gold);
+  }
+  .card .label{
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--ink);
+    line-height:1.4;
+  }
+  .card .go{
+    margin-left:auto;
+    flex:none;
+    opacity:0;
+    transform:translateX(-4px);
+    transition:opacity .16s ease, transform .16s ease;
+    color:var(--lake);
+  }
+  .card:hover .go{opacity:1;transform:translateX(0);}
+
+  .subgroup{
+    margin:4px 0 18px;
+    padding:14px 16px 4px;
+    border-left:2px solid var(--gold);
+    background:rgba(226,162,58,0.06);
+    border-radius:0 10px 10px 0;
+  }
+  .subgroup-title{
+    font-size:13px;
+    color:var(--clay);
+    font-weight:600;
+    margin:0 0 12px;
+  }
+
+  .empty-state{
+    display:none;
+    text-align:center;
+    padding:70px 20px;
+    color:rgba(32,38,31,0.55);
+  }
+  .empty-state.show{display:block;}
+  .no-match{opacity:.35;filter:grayscale(.4);}
+  body.filtering .card.no-match{display:none;}
+  body.filtering .section.all-hidden{display:none;}
+  body.filtering .subgroup.all-hidden{display:none;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 24px 46px;
+    text-align:center;
+    color:rgba(32,38,31,0.5);
+    font-size:13px;
+  }
+  footer .mono{color:rgba(32,38,31,0.4);}
+
+  @media (max-width:640px){
+    .hero-inner{padding:48px 20px 96px;}
+    main{padding:56px 18px 20px;}
+    .toc{margin-top:-46px;}
   }
 </style>
 </head>
 <body>
 
-<div class="app-shell">
+<header class="hero">
+  <div class="lanterns" aria-hidden="true">
+    <span class="lantern" style="left:8%;  top:22%; animation-delay:0s;"></span>
+    <span class="lantern" style="left:18%; top:40%; animation-delay:2.4s;"></span>
+    <span class="lantern" style="left:28%; top:16%; animation-delay:4.1s;"></span>
+    <span class="lantern" style="left:47%; top:30%; animation-delay:1.2s;"></span>
+    <span class="lantern" style="left:63%; top:12%; animation-delay:3.3s;"></span>
+    <span class="lantern" style="left:74%; top:34%; animation-delay:5.6s;"></span>
+    <span class="lantern" style="left:87%; top:20%; animation-delay:0.8s;"></span>
+    <span class="lantern" style="left:94%; top:44%; animation-delay:2.9s;"></span>
+  </div>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-img-wrap">
-        <!-- วาง URL โลโก้ของหน่วยงานในแอตทริบิวต์ src แล้วลบ style="display:none" -->
-        <img src="data:image/png;base64,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" alt="โลโก้ สกร.เชียงคำ" id="logoImg" onload="document.getElementById('logoPlaceholder').style.display='none'" style="display:block">
-        <span class="logo-placeholder" id="logoPlaceholder">สกร</span>
-      </div>
-      <div class="logo-text">
-        <div class="logo-name">สกร.เชียงคำ</div>
-        <div class="logo-sub">Smart Information System</div>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">ภาพรวม</div>
-      <div class="nav-item active" onclick="goHome(this)"><i class="ti ti-home"></i> หน้าแรก</div>
-      <div class="nav-item" onclick="window.open('https://drive.google.com/file/d/1AF1KFf7CAtV2LByuUO_Rda7SmZixJBxs/view?usp=sharing','_blank')"><i class="ti ti-speakerphone"></i> ประกาศประชาสัมพันธ์</div>
-
-      <div class="nav-section-label">งานวิชาการ</div>
-      <div class="nav-item" onclick="scrollToGroup('group-learning')"><i class="ti ti-book"></i> การจัดการเรียนรู้</div>
-      <div class="nav-item" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%AA%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%A3%E0%B8%A1%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%9B%E0%B8%8F%E0%B8%9A%E0%B8%95%E0%B8%87%E0%B8%B2%E0%B8%99','_blank')"><i class="ti ti-clipboard-text"></i> แผนปฏิบัติงาน</div>
-      <div class="nav-item" onclick="scrollToGroup('group-reports')"><i class="ti ti-file-report"></i> รายงานการเรียนรู้</div>
-
-      <div class="nav-section-label">งานบุคคล/ธุรการ</div>
-      <div class="nav-item" onclick="scrollToGroup('group-admin')"><i class="ti ti-users"></i> บุคคล/ธุรการ</div>
-      <div class="nav-item" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%AD-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A2%E0%B8%A7%E0%B8%81%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%94','_blank')"><i class="ti ti-shield"></i> ลูกเสือ/ยุวกาชาด</div>
-
-      <div class="nav-section-label">ข้อมูลสารสนเทศ</div>
-      <div class="nav-item" onclick="scrollToGroup('group-info')"><i class="ti ti-chart-pie"></i> ข้อมูลสารสนเทศ</div>
-      <div class="nav-item" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%97%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%A2%E0%B8%9A%E0%B8%AA%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3','_blank')"><i class="ti ti-device-tv"></i> สื่อและแหล่งเรียนรู้</div>
-
-      <div class="nav-section-label">นโยบาย/ระบบ</div>
-      <div class="nav-item" onclick="scrollToGroup('group-policy')"><i class="ti ti-target"></i> นโยบาย/งานตามนโยบาย</div>
-      <div class="nav-item" onclick="scrollToGroup('group-systems')"><i class="ti ti-link"></i> ระบบที่เกี่ยวข้อง</div>
-      <div class="nav-item" onclick="scrollToGroup('panel-ai')"><i class="ti ti-robot"></i> เครื่องมือ AI</div>
-      <div class="nav-item" onclick="scrollToGroup('panel-docs')"><i class="ti ti-folder"></i> เอกสาร/สรุปผล</div>
-    </nav>
-
-    <div class="sidebar-footer">สำนักงาน สกร. อำเภอเชียงคำ จังหวัดพะเยา</div>
-  </aside>
-
-  <!-- MAIN -->
-  <div class="main-content">
-    <header class="topbar">
-      <div class="topbar-title"><i class="ti ti-layout-dashboard"></i> ภาพรวมระบบสารสนเทศ</div>
+  <div class="hero-inner">
+    <div class="eyebrow">สกร. อำเภอเชียงคำ · จังหวัดพะเยา</div>
+    <h1>ศูนย์รวมลิงก์และระบบงาน<br><em>สำหรับครู กศน./สกร.</em></h1>
+    <p>รวมประกาศ แผนงาน ระบบทะเบียน เครื่องมือ AI และรายงานการจัดการเรียนรู้ไว้ในที่เดียว ค้นหาแล้วกดเข้าใช้งานได้ทันที</p>
+    <div class="search-wrap">
       <div class="search-box">
-        <i class="ti ti-search"></i>
-        <input type="text" id="searchInput" placeholder="ค้นหาเมนู / ลิงก์..." onkeyup="filterLinks(this.value)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search" placeholder="ค้นหา เช่น ทะเบียนผู้เรียน, Claude, แผนปฏิบัติงาน..." autocomplete="off">
       </div>
-    </header>
-
-    <div class="page">
-
-      <!-- HERO -->
-      <div class="hero">
-        <div class="hero-eyebrow">SKR CHIANGKHAM SMART INFORMATION SYSTEM</div>
-        <div class="hero-title">ระบบสารสนเทศสำหรับผู้บริหารและครู</div>
-        <div class="hero-sub">สำนักงาน สกร. อำเภอเชียงคำ จังหวัดพะเยา</div>
-      </div>
-
-      <!-- KPI -->
-      <div class="kpi-grid">
-        <div class="kpi-card blue">
-          <div class="kpi-label"><i class="ti ti-speakerphone"></i>ประกาศประชาสัมพันธ์</div>
-          <div class="kpi-value">เปิดดู</div>
-          <div class="kpi-note">คลิกเพื่อดูประกาศล่าสุด</div>
-        </div>
-        <div class="kpi-card green">
-          <div class="kpi-label"><i class="ti ti-file-report"></i>รายงานการเรียนรู้</div>
-          <div class="kpi-value">5</div>
-          <div class="kpi-note">หมวดหมู่รายงาน</div>
-        </div>
-        <div class="kpi-card amber">
-          <div class="kpi-label"><i class="ti ti-link"></i>ระบบที่เชื่อมโยง</div>
-          <div class="kpi-value">6</div>
-          <div class="kpi-note">ระบบภายนอก</div>
-        </div>
-        <div class="kpi-card pink">
-          <div class="kpi-label"><i class="ti ti-robot"></i>เครื่องมือ AI</div>
-          <div class="kpi-value">11</div>
-          <div class="kpi-note">พร้อมใช้งาน</div>
-        </div>
-      </div>
-
-      <!-- GROUPS -->
-      <div class="section-header">
-        <div class="section-title"><i class="ti ti-layout-grid" style="color:var(--c-primary)"></i>หมวดหมู่งานหลัก</div>
-      </div>
-
-      <div class="group-grid">
-
-        <!-- การจัดการเรียนรู้ -->
-        <div class="group-card" id="group-learning">
-          <div class="group-head">
-            <div class="group-icon blue"><i class="ti ti-book"></i></div>
-            <div class="group-title">การจัดการเรียนรู้ 3 รูปแบบ</div>
-          </div>
-          <div class="group-links">
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%8A%E0%B8%A7%E0%B8%95','_blank')"><span>การเรียนรู้ตลอดชีวิต</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%AD%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%95%E0%B8%99%E0%B9%80%E0%B8%AD%E0%B8%87','_blank')"><span>การเรียนรู้เพื่อพัฒนาตนเอง</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%AD%E0%B8%84%E0%B8%93%E0%B8%A7%E0%B8%92-%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9E%E0%B8%99%E0%B8%90%E0%B8%B2%E0%B8%99','_blank')"><span>การเรียนรู้เพื่อคุณวุฒิตามระดับ</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B8%A1%E0%B8%AD%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%8F%E0%B8%9A%E0%B8%95%E0%B9%83%E0%B8%99%E0%B8%94%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%87-%E0%B9%86','_blank')"><span>คู่มือ/แนวทางการปฏิบัติงาน</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%9F%E0%B8%AD%E0%B8%A3%E0%B8%A1%E0%B8%95%E0%B8%B2%E0%B8%87-%E0%B9%86','_blank')"><span>แบบฟอร์มต่าง ๆ</span><i class="ti ti-external-link ext"></i></div>
-          </div>
-        </div>
-
-        <!-- รายงานการจัดการเรียนรู้ -->
-        <div class="group-card" id="group-reports">
-          <div class="group-head">
-            <div class="group-icon green"><i class="ti ti-file-report"></i></div>
-            <div class="group-title">รายงานการจัดการเรียนรู้</div>
-          </div>
-          <div class="group-links">
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%8A%E0%B8%A7%E0%B8%95','_blank')"><span>การเรียนรู้ตลอดชีวิต</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%AD%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%95%E0%B8%99%E0%B9%80%E0%B8%AD%E0%B8%87','_blank')"><span>การเรียนรู้เพื่อพัฒนาตนเอง</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%9C%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99','_blank')"><span>กิจกรรมพัฒนาผู้เรียน</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%99%E0%B8%B0%E0%B9%81%E0%B8%99%E0%B8%A7-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%83%E0%B8%AB%E0%B8%84%E0%B8%B3%E0%B8%9B%E0%B8%A3%E0%B8%81%E0%B8%A9%E0%B8%B2','_blank')"><span>การแนะแนวและให้คำปรึกษา</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1-%E0%B8%A8%E0%B8%A8%E0%B8%8A-%E0%B8%9E%E0%B8%99%E0%B8%97%E0%B8%AA%E0%B8%87','_blank')"><span>การเรียนรู้บนพื้นที่สูง (ศศช.)</span><i class="ti ti-external-link ext"></i></div>
-          </div>
-        </div>
-
-        <!-- งานบุคคล/ธุรการ -->
-        <div class="group-card" id="group-admin">
-          <div class="group-head">
-            <div class="group-icon amber"><i class="ti ti-users"></i></div>
-            <div class="group-title">งานบุคคล/ธุรการ</div>
-          </div>
-          <div class="group-links">
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%97%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%A2%E0%B8%9A%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A3-%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%97%E0%B8%A2-%E0%B8%84%E0%B8%A3%E0%B8%95%E0%B8%B2%E0%B8%A2','_blank')"><span>ทำเนียบบุคลากร</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%84%E0%B8%B3%E0%B8%AA%E0%B8%87%E0%B8%A1%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99','_blank')"><span>คำสั่งมอบหมายงาน</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%97','_blank')"><span>งานอาคารสถานที่</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B8%95%E0%B8%94%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9C%E0%B8%A5','_blank')"><span>งานนิเทศภายใน</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%AD-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A2%E0%B8%A7%E0%B8%81%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%94','_blank')"><span>งานลูกเสือและยุวกาชาด</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%88%E0%B8%A2','_blank')"><span>งานวิจัย</span><i class="ti ti-external-link ext"></i></div>
-          </div>
-        </div>
-
-        <!-- ข้อมูลสารสนเทศ -->
-        <div class="group-card" id="group-info">
-          <div class="group-head">
-            <div class="group-icon pink"><i class="ti ti-chart-pie"></i></div>
-            <div class="group-title">ข้อมูลสารสนเทศ</div>
-          </div>
-          <div class="group-links">
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%82%E0%B8%AD%E0%B8%A1%E0%B8%A5%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%A8%E0%B8%81%E0%B8%A9%E0%B8%B2','_blank')"><span>ข้อมูลสถานศึกษา</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%82%E0%B8%AD%E0%B8%A1%E0%B8%A5%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD%E0%B9%80%E0%B8%8A%E0%B8%A2%E0%B8%87%E0%B8%84%E0%B8%B3','_blank')"><span>ข้อมูลประชากรอำเภอเชียงคำ</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%AA%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%81%E0%B8%AA%E0%B8%95%E0%B8%A3','_blank')"><span>โครงสร้างหลักสูตร</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://docs.google.com/spreadsheets/d/16m1AdHu8755cCVwbirDgyggBKGXdGp_t/edit?gid=1648958624#gid=1648958624','_blank')"><span>ข้อมูลสำรวจผู้ไม่รู้หนังสือ</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%AA%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B9%83%E0%B8%88','_blank')"><span>การตรวจสุขภาพใจ</span><i class="ti ti-external-link ext"></i></div>
-          </div>
-        </div>
-
-        <!-- นโยบาย -->
-        <div class="group-card" id="group-policy">
-          <div class="group-head">
-            <div class="group-icon coral"><i class="ti ti-target"></i></div>
-            <div class="group-title">นโยบายและงานตามนโยบาย</div>
-          </div>
-          <div class="group-links">
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%99%E0%B9%82%E0%B8%A2%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%88%E0%B8%94%E0%B9%80%E0%B8%99%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%99%E0%B8%87%E0%B8%B2%E0%B8%99','_blank')"><span>นโยบายและจุดเน้นการดำเนินงาน</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%99%E0%B9%82%E0%B8%A2%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%88%E0%B8%94%E0%B9%80%E0%B8%99%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3','_blank')"><span>งานตามนโยบาย</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://drive.google.com/drive/folders/1J0g04Nzumfoht8hfiL58BeSo8JYOQvp9?usp=sharing','_blank')"><span>สรุปผลการดำเนินงานประจำปี</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://drive.google.com/file/d/1AF1KFf7CAtV2LByuUO_Rda7SmZixJBxs/view?usp=sharing','_blank')"><span>ประกาศประชาสัมพันธ์</span><i class="ti ti-external-link ext"></i></div>
-          </div>
-        </div>
-
-        <!-- ระบบที่เกี่ยวข้อง -->
-        <div class="group-card" id="group-systems">
-          <div class="group-head">
-            <div class="group-icon purple"><i class="ti ti-link"></i></div>
-            <div class="group-title">ระบบที่เกี่ยวข้องและเว็บไซต์</div>
-          </div>
-          <div class="group-links">
-            <div class="group-link" onclick="window.open('https://plus.dolemp.ac.th/app/login/','_blank')"><span>เชียงคำ Online By Phayao+</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://school.nacc.go.th/login','_blank')"><span>โรงเรียนพร้อม</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('http://dmis.nfe.go.th/','_blank')"><span>ระบบ DMIS</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://learnerdata.dole.go.th/','_blank')"><span>ระบบทะเบียนผู้เรียน สกร.</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('http://203.159.242.114/index.php?id=person','_blank')"><span>ระบบ ZERO DROPOUT</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%80%E0%B8%A7%E0%B8%9A%E0%B9%84%E0%B8%8B%E0%B8%95%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%82%E0%B8%B2%E0%B8%A2%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%81%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B8%96%E0%B8%99','_blank')"><span>เว็บไซต์ท้องถิ่น</span><i class="ti ti-external-link ext"></i></div>
-            <div class="group-link" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B9%81%E0%B8%88%E0%B8%87%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%A0%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%A8%E0%B8%81%E0%B8%A9%E0%B8%B2','_blank')"><span>ระบบรายงานและแจ้งเหตุ</span><i class="ti ti-external-link ext"></i></div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- BOTTOM TWO COL -->
-      <div class="two-col">
-        <div class="panel" id="panel-ai">
-          <div class="panel-title">เครื่องมือ AI เพื่อการทำงาน</div>
-          <div class="tool-grid">
-            <div class="tool-chip" onclick="window.open('https://claude.ai/new','_blank')"><i class="ti ti-sparkles" style="color:#712B13"></i><span>Claude</span></div>
-            <div class="tool-chip" onclick="window.open('https://chatgpt.com/','_blank')"><i class="ti ti-message-circle" style="color:#0F6E56"></i><span>ChatGPT</span></div>
-            <div class="tool-chip" onclick="window.open('https://gemini.google.com/','_blank')"><i class="ti ti-stars" style="color:#185FA5"></i><span>Gemini</span></div>
-            <div class="tool-chip" onclick="window.open('https://copilot.cloud.microsoft/','_blank')"><i class="ti ti-brand-windows" style="color:#3C3489"></i><span>Copilot</span></div>
-            <div class="tool-chip" onclick="window.open('https://you.com/search?fromSearchBar=true&tbm=youchat','_blank')"><i class="ti ti-message-2" style="color:#0C447C"></i><span>YouChat</span></div>
-            <div class="tool-chip" onclick="window.open('https://www.perplexity.ai/','_blank')"><i class="ti ti-atom" style="color:#27500A"></i><span>Perplexity</span></div>
-            <div class="tool-chip" onclick="window.open('https://www.canva.com/th_th/','_blank')"><i class="ti ti-palette" style="color:#72243E"></i><span>Canva</span></div>
-            <div class="tool-chip" onclick="window.open('https://notebooklm.google/?hl=th','_blank')"><i class="ti ti-notebook" style="color:#854F0B"></i><span>NotebookLM</span></div>
-            <div class="tool-chip" onclick="window.open('https://www.beautiful.ai/','_blank')"><i class="ti ti-presentation" style="color:#185FA5"></i><span>Beautiful.ai</span></div>
-            <div class="tool-chip" onclick="window.open('https://gamma.app/th','_blank')"><i class="ti ti-layout-board-split" style="color:#3C3489"></i><span>Gamma</span></div>
-            <div class="tool-chip" onclick="window.open('https://longsob.me/prompt/','_blank')"><i class="ti ti-prompt" style="color:#854F0B"></i><span>Prompt ฟรี</span></div>
-          </div>
-        </div>
-
-        <div class="panel" id="panel-docs">
-          <div class="panel-title">เอกสารและสรุปผล</div>
-          <div class="report-list">
-            <div class="report-item" onclick="window.open('https://drive.google.com/drive/folders/1J0g04Nzumfoht8hfiL58BeSo8JYOQvp9?usp=sharing','_blank')">
-              <div class="report-icon" style="background:var(--c-primary-light);color:var(--c-primary)"><i class="ti ti-file-text"></i></div>
-              <div class="report-text">สรุปผลการดำเนินงานประจำปี</div>
-              <i class="ti ti-external-link ext"></i>
-            </div>
-            <div class="report-item" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%AA%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B9%83%E0%B8%88','_blank')">
-              <div class="report-icon" style="background:var(--c-green-light);color:var(--c-green)"><i class="ti ti-heart-handshake"></i></div>
-              <div class="report-text">การตรวจสุขภาพใจ</div>
-              <i class="ti ti-external-link ext"></i>
-            </div>
-            <div class="report-item" onclick="window.open('https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/facebook-fanpage','_blank')">
-              <div class="report-icon" style="background:var(--c-amber-light);color:var(--c-amber)"><i class="ti ti-brand-facebook"></i></div>
-              <div class="report-text">Facebook Fanpage</div>
-              <i class="ti ti-external-link ext"></i>
-            </div>
-            <div class="report-item" onclick="window.open('https://docs.google.com/spreadsheets/d/1Bm7arMAvER5D1VV4I8Hgh3JLe3gv5tVJ/edit?usp=sharing&ouid=107918319652735228612&rtpof=true&sd=true','_blank')">
-              <div class="report-icon" style="background:var(--c-pink-light);color:var(--c-pink)"><i class="ti ti-id-badge-2"></i></div>
-              <div class="report-text">ข้อมูลลูกเสือและยุวกาชาด</div>
-              <i class="ti ti-external-link ext"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROMPT BANNER -->
-      <div class="prompt-banner">
-        <div class="prompt-banner-left">
-          <div class="prompt-banner-icon"><i class="ti ti-bulb"></i></div>
-          <div>
-            <div class="prompt-banner-title">คลังคำสั่ง AI Prompt ใช้งานฟรี</div>
-            <div class="prompt-banner-sub">รวมคำสั่งสำเร็จรูปสำหรับงานเอกสาร รายงาน และการสอน</div>
-          </div>
-        </div>
-        <div class="prompt-banner-btn" onclick="window.open('https://longsob.me/prompt/','_blank')">
-          <i class="ti ti-external-link"></i> เปิดดู
-        </div>
-      </div>
-
+      <div class="search-count" id="count"></div>
     </div>
   </div>
-</div>
+
+  <div class="skyline" aria-hidden="true">
+    <svg viewBox="0 0 1200 160" preserveAspectRatio="none">
+      <polygon points="0,160 0,90 120,40 260,100 380,55 520,110 650,60 800,105 900,50 1050,95 1200,60 1200,160" fill="#0d1730" opacity="0.9"/>
+      <polygon points="0,160 0,120 150,80 320,130 470,90 620,135 780,95 950,132 1100,100 1200,125 1200,160" fill="#123536"/>
+      <rect x="0" y="150" width="1200" height="10" fill="#1f5455"/>
+    </svg>
+  </div>
+</header>
+
+<nav class="toc" aria-label="สารบัญหมวดหมู่">
+  <div class="toc-row">
+    <a href="#announce">ประกาศ &amp; แผนงาน</a>
+    <a href="#systems">ระบบที่เกี่ยวข้อง</a>
+    <a href="#ai">เครื่องมือ AI</a>
+    <a href="#reports">รายงานการจัดการเรียนรู้</a>
+    <a href="#info">ข้อมูลสารสนเทศ</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <section class="section" id="announce">
+    <div class="section-head">
+      <span class="tag">01</span>
+      <h2>ประกาศประชาสัมพันธ์ &amp; แนวทางการปฏิบัติงาน</h2>
+    </div>
+    <div class="grid">
+      <a class="card" data-name="ประกาศประชาสัมพันธ์" href="https://drive.google.com/file/d/1AF1KFf7CAtV2LByuUO_Rda7SmZixJBxs/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">ประกาศประชาสัมพันธ์</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="แผนส่งเสริม แผนพัฒนา แผนปฏิบัติงาน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%AA%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%A3%E0%B8%A1%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%9B%E0%B8%8F%E0%B8%9A%E0%B8%95%E0%B8%87%E0%B8%B2%E0%B8%99" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">แผนส่งเสริม / แผนพัฒนา / แผนปฏิบัติงาน</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="คู่มือ แนวทางการปฏิบัติงาน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B8%A1%E0%B8%AD%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%97%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%8F%E0%B8%9A%E0%B8%95%E0%B9%83%E0%B8%99%E0%B8%94%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%87-%E0%B9%86" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">คู่มือแนวทางการปฏิบัติงาน</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="แบบฟอร์มต่างๆ" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%9F%E0%B8%AD%E0%B8%A3%E0%B8%A1%E0%B8%95%E0%B8%B2%E0%B8%87-%E0%B9%86" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">แบบฟอร์มต่าง ๆ</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+
+    <div class="subgroup">
+      <p class="subgroup-title">การจัดการเรียนรู้ 3 รูปแบบ</p>
+      <div class="grid">
+        <a class="card" data-name="การจัดการเรียนรู้ตลอดชีวิต" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%8A%E0%B8%A7%E0%B8%95" target="_blank" rel="noopener">
+          <span class="dot"></span><span class="label">การจัดการเรียนรู้ตลอดชีวิต</span>
+          <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a class="card" data-name="การเรียนรู้เพื่อพัฒนาตนเอง" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%AD%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%95%E0%B8%99%E0%B9%80%E0%B8%AD%E0%B8%87" target="_blank" rel="noopener">
+          <span class="dot"></span><span class="label">การเรียนรู้เพื่อพัฒนาตนเอง</span>
+          <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a class="card" data-name="การเรียนรู้เพื่อคุณวุฒิตามระดับ" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%AD%E0%B8%84%E0%B8%93%E0%B8%A7%E0%B8%92-%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9E%E0%B8%99%E0%B8%90%E0%B8%B2%E0%B8%99" target="_blank" rel="noopener">
+          <span class="dot"></span><span class="label">การเรียนรู้เพื่อคุณวุฒิตามระดับ</span>
+          <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="systems">
+    <div class="section-head">
+      <span class="tag">02</span>
+      <h2>ระบบที่เกี่ยวข้องและเว็บไซต์</h2>
+    </div>
+    <div class="grid">
+      <a class="card" data-name="เชียงคำ Online By Phayao Plus" href="https://plus.dolemp.ac.th/app/login/" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">เชียงคำ Online By Phayao+</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="โรงเรียนพร้อม" href="https://school.nacc.go.th/login" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">โรงเรียนพร้อม</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="ระบบ DMIS" href="http://dmis.nfe.go.th/" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">ระบบ DMIS</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="ระบบทะเบียนผู้เรียน สกร." href="https://learnerdata.dole.go.th/" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">ระบบทะเบียนผู้เรียน สกร.</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="ระบบ ZERO DROPOUT" href="http://203.159.242.114/index.php?id=person" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">ระบบ ZERO DROPOUT</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="เว็บไซต์ท้องถิ่น" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%80%E0%B8%A7%E0%B8%9A%E0%B9%84%E0%B8%8B%E0%B8%95%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%82%E0%B8%B2%E0%B8%A2%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%81%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B8%96%E0%B8%99" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">เว็บไซต์ท้องถิ่น</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="card" data-name="ระบบรายงานและแจ้งเหตุ" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%9A%E0%B9%81%E0%B8%88%E0%B8%87%E0%B9%80%E0%B8%AB%E0%B8%95%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%A0%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%A8%E0%B8%81%E0%B8%A9%E0%B8%B2" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">ระบบรายงานและแจ้งเหตุ</span>
+        <svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="ai">
+    <div class="section-head">
+      <span class="tag">03</span>
+      <h2>เครื่องมือ AI เพื่อการทำงาน</h2>
+    </div>
+    <div class="grid">
+      <a class="card" data-name="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Claude</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ChatGPT</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Gemini" href="https://gemini.google.com/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Gemini</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Copilot" href="https://copilot.cloud.microsoft/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Copilot</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="YouChat" href="https://you.com/search?fromSearchBar=true&tbm=youchat" target="_blank" rel="noopener"><span class="dot"></span><span class="label">YouChat</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Perplexity AI" href="https://www.perplexity.ai/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Perplexity AI</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Canva" href="https://www.canva.com/th_th/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Canva</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="NotebookLM" href="https://notebooklm.google/?hl=th" target="_blank" rel="noopener"><span class="dot"></span><span class="label">NotebookLM</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Beautiful.ai" href="https://www.beautiful.ai/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Beautiful.ai</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Tome" href="https://tome.app/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Tome</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Gamma.app" href="https://gamma.app/th" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Gamma.app</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="ลิงก์คำสั่ง Prompt ใช้งานฟรี" href="https://longsob.me/prompt/" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ลิงก์คำสั่ง PROMPT ใช้งานฟรี</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+    </div>
+  </section>
+
+  <section class="section" id="reports">
+    <div class="section-head">
+      <span class="tag">04</span>
+      <h2>รายงานการจัดการเรียนรู้</h2>
+    </div>
+    <div class="grid">
+      <a class="card" data-name="รายงาน การเรียนรู้ตลอดชีวิต" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%95%E0%B8%A5%E0%B8%AD%E0%B8%94%E0%B8%8A%E0%B8%A7%E0%B8%95" target="_blank" rel="noopener"><span class="dot"></span><span class="label">การเรียนรู้ตลอดชีวิต</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="รายงาน การเรียนรู้เพื่อพัฒนาตนเอง" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%AD%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%95%E0%B8%99%E0%B9%80%E0%B8%AD%E0%B8%87" target="_blank" rel="noopener"><span class="dot"></span><span class="label">การเรียนรู้เพื่อพัฒนาตนเอง</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="กิจกรรมพัฒนาผู้เรียน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%9C%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99" target="_blank" rel="noopener"><span class="dot"></span><span class="label">กิจกรรมพัฒนาผู้เรียน</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="การแนะแนวและให้คำปรึกษา" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%99%E0%B8%B0%E0%B9%81%E0%B8%99%E0%B8%A7-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%83%E0%B8%AB%E0%B8%84%E0%B8%B3%E0%B8%9B%E0%B8%A3%E0%B8%81%E0%B8%A9%E0%B8%B2" target="_blank" rel="noopener"><span class="dot"></span><span class="label">การแนะแนวและให้คำปรึกษา</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="การเรียนรู้บนพื้นที่สูง ศศช" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%88%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1-%E0%B8%A8%E0%B8%A8%E0%B8%8A-%E0%B8%9E%E0%B8%99%E0%B8%97%E0%B8%AA%E0%B8%87" target="_blank" rel="noopener"><span class="dot"></span><span class="label">การเรียนรู้บนพื้นที่สูง (ศศช.)</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="งานอาคารสถานที่" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%97" target="_blank" rel="noopener"><span class="dot"></span><span class="label">งานอาคารสถานที่</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="งานนิเทศภายใน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B9%80%E0%B8%97%E0%B8%A8%E0%B8%95%E0%B8%94%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9C%E0%B8%A5" target="_blank" rel="noopener"><span class="dot"></span><span class="label">งานนิเทศภายใน</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="งานวิจัย" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%88%E0%B8%A2" target="_blank" rel="noopener"><span class="dot"></span><span class="label">งานวิจัย</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="สื่อและแหล่งเรียนรู้" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%97%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%A2%E0%B8%9A%E0%B8%AA%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3" target="_blank" rel="noopener"><span class="dot"></span><span class="label">สื่อและแหล่งเรียนรู้</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="นโยบายและจุดเน้นการดำเนินงาน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%99%E0%B9%82%E0%B8%A2%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B8%88%E0%B8%94%E0%B9%80%E0%B8%99%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%94%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%99%E0%B8%87%E0%B8%B2%E0%B8%99" target="_blank" rel="noopener"><span class="dot"></span><span class="label">นโยบายและจุดเน้นการดำเนินงาน</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="คำสั่งมอบหมายงาน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%84%E0%B8%B3%E0%B8%AA%E0%B8%87%E0%B8%A1%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%A1%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99" target="_blank" rel="noopener"><span class="dot"></span><span class="label">คำสั่งมอบหมายงาน</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="งานตามนโยบาย" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%99%E0%B9%82%E0%B8%A2%E0%B8%9A%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%88%E0%B8%94%E0%B9%80%E0%B8%99%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%AA%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%A3%E0%B8%A1%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A3%E0%B8%A2%E0%B8%99%E0%B8%A3" target="_blank" rel="noopener"><span class="dot"></span><span class="label">งานตามนโยบาย</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="งานกิจการลูกเสือและยุวกาชาด" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B8%81%E0%B9%80%E0%B8%AA%E0%B8%AD-%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%A2%E0%B8%A7%E0%B8%81%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%94" target="_blank" rel="noopener"><span class="dot"></span><span class="label">งานกิจการลูกเสือและยุวกาชาด</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+    </div>
+  </section>
+
+  <section class="section" id="info">
+    <div class="section-head">
+      <span class="tag">05</span>
+      <h2>ข้อมูลสารสนเทศ</h2>
+    </div>
+    <div class="grid">
+      <a class="card" data-name="ข้อมูลสถานศึกษา" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%82%E0%B8%AD%E0%B8%A1%E0%B8%A5%E0%B8%AA%E0%B8%96%E0%B8%B2%E0%B8%99%E0%B8%A8%E0%B8%81%E0%B8%A9%E0%B8%B2" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ข้อมูลสถานศึกษา</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="ข้อมูลประชากรอำเภอเชียงคำ" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%82%E0%B8%AD%E0%B8%A1%E0%B8%A5%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%8A%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%AD%E0%B8%B3%E0%B9%80%E0%B8%A0%E0%B8%AD%E0%B9%80%E0%B8%8A%E0%B8%A2%E0%B8%87%E0%B8%84%E0%B8%B3" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ข้อมูลประชากรอำเภอเชียงคำ</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="โครงสร้างหลักสูตร" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%AA%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%81%E0%B8%AA%E0%B8%95%E0%B8%A3" target="_blank" rel="noopener"><span class="dot"></span><span class="label">โครงสร้างหลักสูตร</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="ทำเนียบบุคลากร" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%97%E0%B8%B3%E0%B9%80%E0%B8%99%E0%B8%A2%E0%B8%9A%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A3-%E0%B8%A7%E0%B8%A3%E0%B8%A7%E0%B8%97%E0%B8%A2-%E0%B8%84%E0%B8%A3%E0%B8%95%E0%B8%B2%E0%B8%A2" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ทำเนียบบุคลากร</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="ข้อมูลสำรวจผู้ไม่รู้หนังสือ" href="https://docs.google.com/spreadsheets/d/16m1AdHu8755cCVwbirDgyggBKGXdGp_t/edit?gid=1648958624#gid=1648958624" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ข้อมูลสำรวจผู้ไม่รู้หนังสือ</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="การตรวจสุขภาพใจ" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%AA%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B9%83%E0%B8%88" target="_blank" rel="noopener"><span class="dot"></span><span class="label">การตรวจสุขภาพใจ</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="Facebook Fanpage" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/facebook-fanpage" target="_blank" rel="noopener"><span class="dot"></span><span class="label">Facebook Fanpage</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="ข้อมูลทางลูกเสือและยุวกาชาด" href="https://docs.google.com/spreadsheets/d/1Bm7arMAvER5D1VV4I8Hgh3JLe3gv5tVJ/edit?usp=sharing&ouid=107918319652735228612&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="dot"></span><span class="label">ข้อมูลทางลูกเสือและยุวกาชาด</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="สรุปผลการดำเนินงานประจำปี" href="https://drive.google.com/drive/folders/1J0g04Nzumfoht8hfiL58BeSo8JYOQvp9?usp=sharing" target="_blank" rel="noopener"><span class="dot"></span><span class="label">สรุปผลการดำเนินงานประจำปี</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+      <a class="card" data-name="กฎหมายและระเบียบที่เกี่ยวข้อง" href="https://drive.google.com/drive/folders/1RC94wKb3Qj5iTMfBOiEU4gHoQcDDfZp7?usp=sharing" target="_blank" rel="noopener"><span class="dot"></span><span class="label">กฎหมายและระเบียบที่เกี่ยวข้อง</span><svg class="go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+    </div>
+  </section>
+
+  <div class="empty-state" id="emptyState">
+    ไม่พบลิงก์ที่ตรงกับคำค้นหา ลองใช้คำอื่นดูนะครับ
+  </div>
+
+</main>
+
+<footer>
+  <div>สกร.เชียงคำ Smart Information System · จัดทำเพื่อการใช้งานภายในหน่วยงาน</div>
+  <div class="mono" style="margin-top:6px;">รวบรวมลิงก์จากเอกสารสารสนเทศของ สกร.อำเภอเชียงคำ</div>
+</footer>
 
 <script>
-function scrollToGroup(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if (window.event && window.event.currentTarget) window.event.currentTarget.classList.add('active');
-}
-function goHome(el) {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
-}
+  const search = document.getElementById('search');
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const sections = Array.from(document.querySelectorAll('.section'));
+  const subgroups = Array.from(document.querySelectorAll('.subgroup'));
+  const countEl = document.getElementById('count');
+  const emptyState = document.getElementById('emptyState');
+  const body = document.body;
 
-// ค้นหาเมนู/ลิงก์แบบ live filter
-function filterLinks(query) {
-  const q = query.trim().toLowerCase();
-  document.querySelectorAll('.group-link').forEach(link => {
-    const text = link.textContent.toLowerCase();
-    link.style.display = (q === '' || text.includes(q)) ? '' : 'none';
-  });
-  document.querySelectorAll('.group-card').forEach(card => {
-    const visible = [...card.querySelectorAll('.group-link')].some(l => l.style.display !== 'none');
-    card.style.display = visible ? '' : 'none';
-  });
-}
+  function normalize(str){
+    return str.toLowerCase().trim();
+  }
 
-// LOGO SWAP — ใส่ URL โลโก้ของหน่วยงานได้ที่นี่
-function setLogo(url) {
-  const img = document.getElementById('logoImg');
-  const placeholder = document.getElementById('logoPlaceholder');
-  img.src = url;
-  img.style.display = 'block';
-  img.onload = () => { placeholder.style.display = 'none'; };
-  img.onerror = () => { img.style.display = 'none'; placeholder.style.display = ''; };
-}
-// ตัวอย่าง: setLogo('https://...URL_โลโก้ของหน่วยงาน...');
+  function filter(){
+    const q = normalize(search.value);
+    if(!q){
+      body.classList.remove('filtering');
+      cards.forEach(c=>c.classList.remove('no-match'));
+      sections.forEach(s=>s.classList.remove('all-hidden'));
+      subgroups.forEach(s=>s.classList.remove('all-hidden'));
+      countEl.textContent = '';
+      emptyState.classList.remove('show');
+      return;
+    }
+    body.classList.add('filtering');
+    let visible = 0;
+    cards.forEach(c=>{
+      const name = normalize(c.dataset.name + ' ' + c.textContent);
+      const match = name.includes(q);
+      c.classList.toggle('no-match', !match);
+      if(match) visible++;
+    });
+    sections.forEach(sec=>{
+      const anyVisible = sec.querySelectorAll('.card:not(.no-match)').length > 0;
+      sec.classList.toggle('all-hidden', !anyVisible);
+    });
+    subgroups.forEach(sub=>{
+      const anyVisible = sub.querySelectorAll('.card:not(.no-match)').length > 0;
+      sub.classList.toggle('all-hidden', !anyVisible);
+    });
+    countEl.textContent = visible + ' ผลลัพธ์';
+    emptyState.classList.toggle('show', visible === 0);
+  }
+
+  search.addEventListener('input', filter);
 </script>
+
 </body>
 </html>
