@@ -22,6 +22,14 @@
     --clay:#b1552f;
     --line:rgba(32,38,31,0.14);
     --shadow:0 10px 30px rgba(13,23,48,0.14);
+
+    /* header-only palette, matched to the logo (red / black / warm gold) */
+    --header-bg-1:#150807;
+    --header-bg-2:#3a0f0a;
+    --header-bg-3:#1a0908;
+    --header-red:#e2231a;
+    --header-red-soft:#ff6a4d;
+    --header-gold:#ffb94d;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -44,7 +52,7 @@
   /* ===== HERO ===== */
   .hero{
     position:relative;
-    background:linear-gradient(180deg,var(--night-deep) 0%, var(--night) 55%, var(--lake-deep) 100%);
+    background:linear-gradient(160deg,var(--header-bg-1) 0%, var(--header-bg-2) 55%, var(--header-bg-3) 100%);
     color:var(--paper);
     overflow:hidden;
     padding:0 0 0 0;
@@ -54,40 +62,59 @@
     z-index:3;
     max-width:1080px;
     margin:0 auto;
-    padding:64px 24px 120px;
+    padding:34px 24px 68px;
   }
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12.5px;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--gold-soft);
+  .brand-row{
     display:flex;
     align-items:center;
-    gap:10px;
-    margin-bottom:22px;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  .brand-logo{
+    flex:none;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#f6f2e7;
+    box-shadow:0 0 0 3px rgba(255,255,255,0.12), 0 6px 16px rgba(0,0,0,0.4);
+  }
+  .brand-text{min-width:0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--header-gold);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
   }
   .eyebrow::before{
     content:"";
-    width:22px;height:1px;background:var(--gold-soft);
+    width:18px;height:1px;background:var(--header-gold);
     display:inline-block;
   }
   .hero h1{
-    font-size:clamp(34px,5.4vw,58px);
+    font-size:clamp(22px,4vw,40px);
     font-weight:700;
-    margin:0 0 14px;
-    line-height:1.18;
-    max-width:16ch;
+    margin:0;
+    line-height:1.25;
+    max-width:20ch;
   }
   .hero h1 em{
     font-style:normal;
-    color:var(--gold-soft);
+    background:linear-gradient(90deg,var(--header-gold),var(--header-red-soft));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
   }
-  .hero p{
+  .hero .tagline{
     max-width:52ch;
-    font-size:17px;
-    color:rgba(246,242,231,0.78);
-    margin:0 0 34px;
+    font-size:14.5px;
+    color:rgba(246,242,231,0.72);
+    margin:10px 0 22px;
   }
   .search-wrap{
     max-width:520px;
@@ -99,12 +126,12 @@
     background:rgba(246,242,231,0.08);
     border:1px solid rgba(246,242,231,0.28);
     border-radius:999px;
-    padding:13px 20px;
+    padding:11px 18px;
     backdrop-filter:blur(6px);
     transition:border-color .2s ease, background .2s ease;
   }
   .search-box:focus-within{
-    border-color:var(--gold-soft);
+    border-color:var(--header-gold);
     background:rgba(246,242,231,0.13);
   }
   .search-box svg{flex:none;opacity:.75;}
@@ -114,7 +141,7 @@
     outline:none;
     color:var(--paper);
     font-family:'Sarabun',sans-serif;
-    font-size:15.5px;
+    font-size:15px;
     width:100%;
   }
   .search-box input::placeholder{color:rgba(246,242,231,0.5);}
@@ -131,12 +158,12 @@
   .lanterns{position:absolute;inset:0;z-index:1;pointer-events:none;}
   .lantern{
     position:absolute;
-    width:14px;height:18px;
-    background:radial-gradient(circle at 50% 40%, var(--gold-soft), var(--gold) 65%, transparent 100%);
+    width:12px;height:16px;
+    background:radial-gradient(circle at 50% 40%, var(--header-gold), var(--header-red-soft) 65%, transparent 100%);
     border-radius:50% 50% 46% 46%;
-    box-shadow:0 0 16px 4px rgba(226,162,58,0.55);
+    box-shadow:0 0 14px 4px rgba(226,58,29,0.4);
     animation:drift 14s ease-in-out infinite;
-    opacity:.85;
+    opacity:.8;
   }
   @keyframes drift{
     0%,100%{transform:translateY(0) translateX(0);}
@@ -146,7 +173,7 @@
     .lantern{animation:none;}
   }
 
-  /* mountains + lake */
+  /* mountains skyline */
   .skyline{
     position:absolute;
     bottom:0;left:0;right:0;
@@ -336,9 +363,15 @@
   footer .mono{color:rgba(32,38,31,0.4);}
 
   @media (max-width:640px){
-    .hero-inner{padding:48px 20px 96px;}
+    .hero-inner{padding:22px 16px 46px;}
+    .brand-row{gap:12px;margin-bottom:12px;}
+    .brand-logo{width:44px;height:44px;}
+    .eyebrow{font-size:10.5px;letter-spacing:.16em;margin-bottom:5px;}
+    .hero h1{font-size:19px;line-height:1.3;max-width:22ch;}
+    .hero .tagline{font-size:13px;margin:6px 0 16px;}
+    .search-box{padding:10px 14px;}
     main{padding:56px 18px 20px;}
-    .toc{margin-top:-46px;}
+    .toc{margin-top:-32px;}
   }
 </style>
 </head>
@@ -395,9 +428,14 @@
   </div>
 
   <div class="hero-inner">
-    <div class="eyebrow">สกร. อำเภอเชียงคำ · จังหวัดพะเยา</div>
-    <h1>ระบบสารสนเทศและการติดตามรายงานผล<br><em>สกร.ระดับอำเภอเชียงคำ</em></h1>
-    <p>ค้นหา</p>
+    <div class="brand-row">
+      <img src="Modern_Initial_SM_Logo.png" alt="โลโก้ สกร.เชียงคำ" class="brand-logo">
+      <div class="brand-text">
+        <div class="eyebrow">สกร. อำเภอเชียงคำ · จังหวัดพะเยา</div>
+        <h1>ระบบสารสนเทศและการติดตามรายงานผล <em>สกร.ระดับอำเภอเชียงคำ</em></h1>
+      </div>
+    </div>
+    <p class="tagline">ค้นหาประกาศ แบบฟอร์ม และลิงก์สารสนเทศทั้งหมดของ สกร.เชียงคำ ได้ในที่เดียว</p>
     <div class="search-wrap">
       <div class="search-box">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -409,16 +447,16 @@
 
   <div class="skyline" aria-hidden="true">
     <svg viewBox="0 0 1200 160" preserveAspectRatio="none">
-      <polygon points="0,160 0,90 120,40 260,100 380,55 520,110 650,60 800,105 900,50 1050,95 1200,60 1200,160" fill="#0d1730" opacity="0.9"/>
-      <polygon points="0,160 0,120 150,80 320,130 470,90 620,135 780,95 950,132 1100,100 1200,125 1200,160" fill="#123536"/>
-      <rect x="0" y="150" width="1200" height="10" fill="#1f5455"/>
+      <polygon points="0,160 0,90 120,40 260,100 380,55 520,110 650,60 800,105 900,50 1050,95 1200,60 1200,160" fill="#1a0908" opacity="0.9"/>
+      <polygon points="0,160 0,120 150,80 320,130 470,90 620,135 780,95 950,132 1100,100 1200,125 1200,160" fill="#2a0f0c"/>
+      <rect x="0" y="150" width="1200" height="10" fill="#e2231a" opacity="0.85"/>
     </svg>
   </div>
 </header>
 
 <nav class="toc" aria-label="สารบัญหมวดหมู่">
   <div class="toc-row">
-    <a href="#announce"><svg class="ic" width="14" height="14"><use href="#i-megaphone"/></svg>ปฏิทิน &amp; แผนงาน</a>
+    <a href="#announce"><svg class="ic" width="14" height="14"><use href="#i-megaphone"/></svg>ประกาศ &amp; แผนงาน</a>
     <a href="#systems"><svg class="ic" width="14" height="14"><use href="#i-globe"/></svg>ระบบที่เกี่ยวข้อง</a>
     <a href="#ai"><svg class="ic" width="14" height="14"><use href="#i-sparkles"/></svg>เครื่องมือ AI</a>
     <a href="#reports"><svg class="ic" width="14" height="14"><use href="#i-chart"/></svg>รายงานการจัดการเรียนรู้</a>
@@ -431,11 +469,11 @@
   <section class="section" id="announce">
     <div class="section-head">
       <span class="icon-circle"><svg class="ic"><use href="#i-megaphone"/></svg></span>
-      <div><span class="tag">01</span><h2>ปฏิทิน &amp; แผน และการจัดการเรียนรู้</h2></div>
+      <div><span class="tag">01</span><h2>ประกาศประชาสัมพันธ์ &amp; แนวทางการปฏิบัติงาน</h2></div>
     </div>
     <div class="grid">
-      <a class="card" data-name="ปฏิทิน" href="https://calendar.google.com/calendar/u/0?cid=MjcuODI1MjNrQGdtYWlsLmNvbQ" target="_blank" rel="noopener">
-        <span class="icon-badge"><svg class="ic"><use href="#i-megaphone"/></svg></span><span class="label">ปฏิทิน</span>
+      <a class="card" data-name="ประกาศประชาสัมพันธ์" href="https://drive.google.com/file/d/1AF1KFf7CAtV2LByuUO_Rda7SmZixJBxs/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="icon-badge"><svg class="ic"><use href="#i-megaphone"/></svg></span><span class="label">ประกาศประชาสัมพันธ์</span>
         <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><use href="#i-arrow"/></svg>
       </a>
       <a class="card" data-name="แผนส่งเสริม แผนพัฒนา แผนปฏิบัติงาน" href="https://sites.google.com/phusangnfe.com/ck-district-learning-encourage/%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%AA%E0%B8%87%E0%B9%80%E0%B8%AA%E0%B8%A3%E0%B8%A1%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%9E%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%9B%E0%B8%8F%E0%B8%9A%E0%B8%95%E0%B8%87%E0%B8%B2%E0%B8%99" target="_blank" rel="noopener">
